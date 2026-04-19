@@ -1,15 +1,22 @@
 import { useEffect, useState } from 'react'
-import pizzaFallback from './assets/img/napolitana.jpg'
+import { pizzas as pizzasLocal } from './pizzas'
 
 const Pizza = () => {
   const [pizza, setPizza] = useState(null)
 
+  const isGitHub = window.location.hostname === 'sergio-papo.github.io'
+
   useEffect(() => {
     const obtenerPizza = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/pizzas/p001')
-        const data = await res.json()
-        setPizza(data)
+        if (isGitHub) {
+        const pizzaLocal = pizzasLocal.find(p => p.id === 'p001') || pizzasLocal[0]
+        setPizza(pizzaLocal)
+        } else {
+          const res = await fetch('http://localhost:5000/api/pizzas/p001')
+          const data = await res.json()
+          setPizza(data)
+        }
       } catch (error) {
         console.error('Error al obtener la pizza:', error)
       }
@@ -24,15 +31,15 @@ const Pizza = () => {
 
   return (
     <section className="pizza-detail">
-                    <img
+      <img
         src={pizza.img}
         alt={pizza.name}
         className="pizza-detail-img"
         onError={(e) => {
-            e.target.onerror = null
-            e.target.src = pizzaFallback
+          e.target.onerror = null
+          e.target.src = "https://via.placeholder.com/400x300?text=Pizza"
         }}
-        />
+      />
 
       <div className="pizza-detail-info">
         <h2>Pizza {pizza.name}</h2>
@@ -40,7 +47,7 @@ const Pizza = () => {
 
         <h3>Ingredientes:</h3>
         <ul>
-          {pizza.ingredients.map((ingredient, index) => (
+          {pizza.ingredients?.map((ingredient, index) => (
             <li key={index}>🍕 {ingredient}</li>
           ))}
         </ul>
