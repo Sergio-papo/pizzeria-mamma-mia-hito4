@@ -31,3 +31,11 @@ Este proyecto es parte de un desafío académico y no incluye funcionalidades re
 
 HITO 2:
 Se agrega el register y el login
+
+HITO 3:
+Carrito de compras En este hito se implementa la lógica de un carrito de compras dinámico utilizando React.
+
+HITO 4:
+Consumo de API con React. En este hito se implementó la conexión entre el frontend y un backend mediante el consumo de una API REST.
+Se utilizó fetch junto con los hooks useState y useEffect para obtener y manejar datos dinámicos desde el servidor.
+
